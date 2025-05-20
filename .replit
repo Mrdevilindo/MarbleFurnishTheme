@@ -1,0 +1,32 @@
+modules = ["php", "php-8.2", "python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Static HTML Server"
+
+[[workflows.workflow]]
+name = "Static HTML Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m http.server 5000 --directory marblecraft"
+waitForPort = 5000
+
+[deployment]
+run = ["sh", "-c", "php -S 0.0.0.0:5000 -t marblecraft"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

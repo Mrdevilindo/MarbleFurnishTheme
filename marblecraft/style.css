@@ -1,0 +1,15 @@
+/*
+Theme Name: MarbleCraft
+Theme URI: https://marblecraft.com
+Author: MarbleCraft Team
+Author URI: https://marblecraft.com
+Description: A custom WordPress theme for a marble furniture business targeting international buyers.
+Version: 1.0
+Text Domain: marblecraft
+*/
+
+/* 
+This file is required for WordPress to identify the theme.
+Most styles are loaded via Tailwind CSS in the header.
+Custom styles are in assets/css/custom.css
+*/

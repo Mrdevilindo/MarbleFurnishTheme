@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarbleCraft - Premium Marble Furniture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <style>
+        /* Additional demo styles */
+        .demo-notice {
+            background-color: #FEF3C7;
+            color: #92400E;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .code-section {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="demo-notice">
+        <p>This is a static demonstration of the MarbleCraft WordPress theme. In a real WordPress environment, dynamic content would be loaded.</p>
+    </div>
+
+    <header id="masthead" class="site-header bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div class="site-branding flex items-center justify-between">
+                    <h1 class="site-title font-bold text-2xl">
+                        <a href="#" rel="home" class="text-gray-800 hover:text-blue-600">
+                            MarbleCraft
+                        </a>
+                    </h1>
+                    
+                    <button id="mobile-menu-toggle" class="md:hidden text-gray-600 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <nav id="site-navigation" class="main-navigation hidden md:block">
+                    <ul class="flex md:flex-row flex-col space-y-4 md:space-y-0 md:space-x-6 text-lg">
+                        <li><a href="#" class="text-gray-800 hover:text-blue-600">Home</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-blue-600">Products</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-blue-600">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="language-switcher hidden md:block">
+                    <div class="flex space-x-2">
+                        <a href="#" class="inline-block px-2 py-1 rounded-md text-sm bg-blue-600 text-white">EN</a>
+                        <a href="#" class="inline-block px-2 py-1 rounded-md text-sm bg-gray-200 hover:bg-gray-300 text-gray-800">中文</a>
+                        <a href="#" class="inline-block px-2 py-1 rounded-md text-sm bg-gray-200 hover:bg-gray-300 text-gray-800">ES</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden mt-4 hidden">
+                <nav class="mobile-navigation mb-4">
+                    <ul class="flex flex-col space-y-4 text-lg">
+                        <li><a href="#" class="text-gray-800 hover:text-blue-600">Home</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-blue-600">Products</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-blue-600">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="mobile-language-switcher">
+                    <div class="flex space-x-2">
+                        <a href="#" class="inline-block px-2 py-1 rounded-md text-sm bg-blue-600 text-white">EN</a>
+                        <a href="#" class="inline-block px-2 py-1 rounded-md text-sm bg-gray-200 hover:bg-gray-300 text-gray-800">中文</a>
+                        <a href="#" class="inline-block px-2 py-1 rounded-md text-sm bg-gray-200 hover:bg-gray-300 text-gray-800">ES</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section relative h-screen min-h-[500px] flex items-center justify-center text-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 to-transparent opacity-70"></div>
+        <div class="container mx-auto px-4 z-10">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                Elegant Marble Furniture
+            </h1>
+            
+            <div class="language-specific-content">
+                <!-- English content (default) -->
+                <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto">
+                    Discover our handcrafted marble furniture, where timeless elegance meets modern design.
+                </p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    View Our Collection
+                </a>
+                <a href="#" class="bg-transparent hover:bg-white text-white hover:text-blue-600 font-bold py-3 px-6 rounded-lg border-2 border-white transition duration-300">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="featured-products py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                Featured Products
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Product Card 1 -->
+                <article class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <a href="#" class="block aspect-w-4 aspect-h-3 bg-gray-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image text-gray-400">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </a>
+                    
+                    <div class="p-4">
+                        <header class="mb-2">
+                            <h2 class="entry-title text-xl font-bold">
+                                <a href="#" class="hover:text-blue-600 transition-colors">
+                                    Marble Dining Table
+                                </a>
+                            </h2>
+                        </header>
+                        
+                        <div class="categories mb-3">
+                            <div class="flex flex-wrap gap-1">
+                                <a href="#" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-full">
+                                    Tables
+                                </a>
+                                <a href="#" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-full">
+                                    Dining
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="excerpt text-gray-600 mb-4">
+                            Elegant dining table crafted from premium Italian marble with a sleek design.
+                        </div>
+                        
+                        <div class="price text-lg font-bold text-blue-600 mb-3">
+                            $2,499
+                        </div>
+                        
+                        <div class="actions flex justify-between">
+                            <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md transition duration-300">
+                                View Details
+                            </a>
+                            
+                            <a href="#" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm py-2 px-4 rounded-md transition duration-300">
+                                Inquire
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 2 -->
+                <article class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <a href="#" class="block aspect-w-4 aspect-h-3 bg-gray-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image text-gray-400">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </a>
+                    
+                    <div class="p-4">
+                        <header class="mb-2">
+                            <h2 class="entry-title text-xl font-bold">
+                                <a href="#" class="hover:text-blue-600 transition-colors">
+                                    Marble Coffee Table
+                                </a>
+                            </h2>
+                        </header>
+                        
+                        <div class="categories mb-3">
+                            <div class="flex flex-wrap gap-1">
+                                <a href="#" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-full">
+                                    Tables
+                                </a>
+                                <a href="#" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-full">
+                                    Living Room
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="excerpt text-gray-600 mb-4">
+                            Modern coffee table with white marble top and gold metal legs.
+                        </div>
+                        
+                        <div class="price text-lg font-bold text-blue-600 mb-3">
+                            $899
+                        </div>
+                        
+                        <div class="actions flex justify-between">
+                            <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md transition duration-300">
+                                View Details
+                            </a>
+                            
+                            <a href="#" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm py-2 px-4 rounded-md transition duration-300">
+                                Inquire
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 3 -->
+                <article class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <a href="#" class="block aspect-w-4 aspect-h-3 bg-gray-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image text-gray-400">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </a>
+                    
+                    <div class="p-4">
+                        <header class="mb-2">
+                            <h2 class="entry-title text-xl font-bold">
+                                <a href="#" class="hover:text-blue-600 transition-colors">
+                                    Marble Side Table
+                                </a>
+                            </h2>
+                        </header>
+                        
+                        <div class="categories mb-3">
+                            <div class="flex flex-wrap gap-1">
+                                <a href="#" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-full">
+                                    Tables
+                                </a>
+                                <a href="#" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-full">
+                                    Bedroom
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="excerpt text-gray-600 mb-4">
+                            Elegant side table with green marble top, perfect for bedroom or living room.
+                        </div>
+                        
+                        <div class="price text-lg font-bold text-blue-600 mb-3">
+                            $549
+                        </div>
+                        
+                        <div class="actions flex justify-between">
+                            <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md transition duration-300">
+                                View Details
+                            </a>
+                            
+                            <a href="#" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm py-2 px-4 rounded-md transition duration-300">
+                                Inquire
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    View All Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        Craftsmanship Beyond Compare
+                    </h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        At MarbleCraft, we transform natural marble into exquisite furniture pieces that bring timeless elegance to any space. Each piece is carefully crafted by skilled artisans with decades of experience working with this precious stone.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Our pieces combine traditional craftsmanship with contemporary design, creating functional art that will become the centerpiece of your home or office.
+                    </p>
+                    <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                        Learn More About Us
+                    </a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Transform Your Space?
+            </h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Contact us today to discuss your custom marble furniture needs or explore our collection of ready-made pieces.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-6 rounded-lg transition duration-300">
+                    Browse Products
+                </a>
+                <a href="#" class="bg-transparent hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg border-2 border-white transition duration-300">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="colophon" class="site-footer bg-gray-800 text-white py-8 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Footer Column 1 -->
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4">About Us</h3>
+                    <p class="mb-4">Premium marble furniture crafted with precision and care, designed to elevate any space with timeless elegance.</p>
+                    <div class="social-icons flex space-x-4">
+                        <a href="#" class="text-white hover:text-blue-400" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-blue-400" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-blue-400" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Footer Column 2 -->
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="footer-menu space-y-2">
+                        <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Products</a></li>
+                        <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Footer Column 3 -->
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <address class="not-italic space-y-2">
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin mr-2 mt-1">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>123 Marble St, Stone City</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone mr-2 mt-1">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span>+1 (123) 456-7890</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail mr-2 mt-1">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span><a href="mailto:info@marblecraft.com" class="hover:text-blue-400">info@marblecraft.com</a></span>
+                        </div>
+                    </address>
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 my-6">
+            
+            <div class="flex flex-col md:flex-row md:justify-between items-center">
+                <div class="copyright mb-4 md:mb-0">
+                    <p>&copy; 2025 MarbleCraft. All rights reserved.</p>
+                </div>
+                
+                <div class="payment-methods">
+                    <p class="mb-2 text-center md:text-right">We accept:</p>
+                    <div class="flex space-x-3">
+                        <span class="bg-white text-gray-800 rounded px-2 py-1 text-sm">Visa</span>
+                        <span class="bg-white text-gray-800 rounded px-2 py-1 text-sm">MasterCard</span>
+                        <span class="bg-white text-gray-800 rounded px-2 py-1 text-sm">PayPal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold mb-4">MarbleCraft Theme Structure Documentation</h2>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 class="text-xl font-bold mb-4">Key Features</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><strong>Custom Post Type:</strong> Marble Products with price, currency, and featured options</li>
+                <li><strong>Multilingual Support:</strong> Compatible with WPML and Polylang for translations</li>
+                <li><strong>Contact Form:</strong> Custom form with database storage and email notifications</li>
+                <li><strong>Responsive Design:</strong> Mobile-friendly layout with Tailwind CSS</li>
+                <li><strong>Product Gallery:</strong> Image gallery with thumbnails for product pages</li>
+            </ul>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4">Theme Structure</h3>
+                <div class="code-section">
+marblecraft/
+├── style.css                   # Main stylesheet
+├── functions.php               # Theme functions
+├── index.php                   # Main template
+├── header.php                  # Header template
+├── footer.php                  # Footer template
+├── front-page.php              # Homepage template
+├── page.php                    # Default page template
+├── page-products.php           # Products page template
+├── page-contact.php            # Contact page template
+├── single-marble_product.php   # Single product template
+├── archive-marble_product.php  # Product archive template
+├── template-parts/             # Template components
+│   ├── product-card.php        # Product card component
+│   ├── contact-form.php        # Contact form component
+│   └── language-switcher.php   # Language switcher component
+├── inc/                        # Theme includes
+│   ├── custom-post-types.php   # Custom post type definitions
+│   ├── form-handler.php        # Form processing logic
+│   └── admin-submissions.php   # Admin page for form submissions
+└── assets/                     # Theme assets
+    ├── css/                    # CSS files
+    ├── js/                     # JavaScript files
+    └── images/                 # Image files
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4">Implementation Notes</h3>
+                <p class="mb-4">This theme was designed to work within a WordPress environment. The static demo you're seeing is just a representation of the theme's design.</p>
+                
+                <h4 class="text-lg font-semibold mb-2">WordPress Integration Requirements:</h4>
+                <ul class="list-disc pl-6 space-y-2 mb-4">
+                    <li>WordPress core files</li>
+                    <li>MySQL database for storing content and form submissions</li>
+                    <li>Optional: WPML or Polylang plugin for multilingual support</li>
+                    <li>Optional: Google reCAPTCHA for form spam protection</li>
+                </ul>
+                
+                <h4 class="text-lg font-semibold mb-2">Custom Database Tables:</h4>
+                <div class="code-section">
+CREATE TABLE wp_marblecraft_submissions (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  country varchar(100) NOT NULL,
+  message text NOT NULL,
+  submission_date datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple demo scripts to mimic the theme's JavaScript behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

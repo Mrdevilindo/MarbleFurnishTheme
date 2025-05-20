@@ -1,0 +1,342 @@
+/**
+ * Custom CSS for MarbleCraft WordPress theme
+ * 
+ * This stylesheet contains custom styles beyond what Tailwind provides
+ */
+
+/* General Styles */
+body {
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Theme Colors - Marble inspired color palette */
+:root {
+    --color-marble-white: #f5f5f5;
+    --color-marble-cream: #f0ebe5;
+    --color-marble-light-gray: #e0e0e0;
+    --color-marble-dark-gray: #4a4a4a;
+    --color-marble-black: #232323;
+    --color-marble-blue: #235789;
+    --color-marble-gold: #c6a97c;
+}
+
+/* Hero Section Background - Marble texture */
+.hero-section {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-placeholder.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* SVG placeholder for hero background */
+.hero-placeholder {
+    background-color: var(--color-marble-dark-gray);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-placeholder::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.05) 25%, 
+        rgba(255,255,255,0.05) 50%, transparent 50%, transparent 75%, 
+        rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05));
+    background-size: 20px 20px;
+    z-index: 1;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.025em;
+}
+
+.site-title {
+    font-weight: 700;
+}
+
+/* Custom button styles */
+.btn-primary {
+    background-color: var(--color-marble-blue);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1a4066;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: var(--color-marble-blue);
+}
+
+/* Product card enhancements */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .product-image {
+    overflow: hidden;
+}
+
+.product-card .product-image img {
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+/* Form styling */
+.form-control {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--color-marble-blue);
+    box-shadow: 0 0 0 3px rgba(35, 87, 137, 0.1);
+    outline: none;
+}
+
+/* Form response messages */
+.form-response {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-top: 1rem;
+}
+
+.form-response.success {
+    background-color: #f0fff4;
+    color: #2f855a;
+    border: 1px solid #c6f6d5;
+}
+
+.form-response.error {
+    background-color: #fff5f5;
+    color: #c53030;
+    border: 1px solid #fed7d7;
+}
+
+/* Header and navigation */
+.site-header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-navigation a {
+    position: relative;
+}
+
+.main-navigation a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-marble-blue);
+    transition: width 0.3s ease;
+}
+
+.main-navigation a:hover::after,
+.main-navigation .current-menu-item a::after {
+    width: 100%;
+}
+
+/* Footer styling */
+.site-footer {
+    background-color: var(--color-marble-black);
+}
+
+.footer-menu a {
+    transition: color 0.2s ease;
+}
+
+.footer-menu a:hover {
+    color: var(--color-marble-gold);
+}
+
+/* Social icons hover effect */
+.social-icons a {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+/* Language switcher */
+.language-switcher a {
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Pagination styling */
+.pagination .page-numbers {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    margin: 0 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-numbers.current {
+    background-color: var(--color-marble-blue);
+    color: white;
+    border-color: var(--color-marble-blue);
+}
+
+.pagination .page-numbers:hover:not(.current) {
+    background-color: #f8f9fa;
+    border-color: #cbd5e0;
+}
+
+/* Testimonials section */
+.testimonials .testimonial {
+    position: relative;
+}
+
+.testimonials .testimonial::before {
+    content: '"';
+    position: absolute;
+    top: -1.5rem;
+    left: 1rem;
+    font-size: 5rem;
+    color: rgba(0, 0, 0, 0.05);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+/* CTA section enhancements */
+.cta-section {
+    background-color: var(--color-marble-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, 
+                transparent 50%, rgba(255, 255, 255, 0.05) 50%, 
+                rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    z-index: 1;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Mobile menu adjustments */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .main-navigation {
+        display: none;
+    }
+    
+    .mobile-menu {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+}
+
+/* Accessibility enhancements */
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--color-marble-blue);
+    outline-offset: 2px;
+}
+
+/* Animation for hover effects */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(35, 87, 137, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(35, 87, 137, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(35, 87, 137, 0);
+    }
+}
+
+.btn-primary:focus {
+    animation: pulse 1.5s infinite;
+}
+
+/* Aspect ratio utilities for modern browsers */
+.aspect-w-1, .aspect-w-4 {
+    position: relative;
+    width: 100%;
+}
+
+.aspect-w-1::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.aspect-w-4::before {
+    content: "";
+    display: block;
+    padding-top: 75%;
+}
+
+.aspect-h-1 > *, .aspect-h-3 > * {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Print styles for better printing experience */
+@media print {
+    header, footer, .no-print {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        background: white;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}
