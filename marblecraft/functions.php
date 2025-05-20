@@ -1,190 +1,397 @@
 <?php
 /**
- * MarbleCraft Theme Functions
- * 
- * Main functionality for the MarbleCraft WordPress theme
+ * MarbleCraft Theme functions and definitions
  */
 
-// Prevent direct access
 if (!defined('ABSPATH')) {
-    exit;
+    exit; // Exit if accessed directly
 }
 
-// Define theme constants
+/**
+ * Define Constants
+ */
 define('MARBLECRAFT_VERSION', '1.0.0');
-define('MARBLECRAFT_DIR', get_template_directory());
-define('MARBLECRAFT_URI', get_template_directory_uri());
+define('MARBLECRAFT_THEME_DIR', get_template_directory());
+define('MARBLECRAFT_THEME_URI', get_template_directory_uri());
 
 /**
- * Theme setup
+ * Theme Setup
  */
 function marblecraft_setup() {
-    // Add theme support
+    // Load theme text domain for translation
+    load_theme_textdomain('marblecraft', MARBLECRAFT_THEME_DIR . '/languages');
+
+    // Add default posts and comments RSS feed links to head
+    add_theme_support('automatic-feed-links');
+
+    // Let WordPress manage the document title
     add_theme_support('title-tag');
+
+    // Enable support for Post Thumbnails on posts and pages
     add_theme_support('post-thumbnails');
+    
+    // Add support for responsive embeds
+    add_theme_support('responsive-embeds');
+
+    // Add support for custom logo
     add_theme_support('custom-logo', array(
         'height'      => 100,
-        'width'       => 300,
-        'flex-height' => true,
+        'width'       => 350,
         'flex-width'  => true,
+        'flex-height' => true,
     ));
+
+    // Register menus
+    register_nav_menus(array(
+        'primary' => esc_html__('Primary Menu', 'marblecraft'),
+        'footer'  => esc_html__('Footer Menu', 'marblecraft'),
+    ));
+
+    // Switch default core markup to output valid HTML5
     add_theme_support('html5', array(
         'search-form',
         'comment-form',
         'comment-list',
         'gallery',
         'caption',
+        'style',
+        'script',
     ));
 
-    // Register navigation menus
-    register_nav_menus(array(
-        'primary' => esc_html__('Primary Menu', 'marblecraft'),
-        'footer'  => esc_html__('Footer Menu', 'marblecraft'),
+    // Add support for Block Styles
+    add_theme_support('wp-block-styles');
+
+    // Add support for full and wide align images
+    add_theme_support('align-wide');
+
+    // Set up the WordPress core custom background feature
+    add_theme_support('custom-background', array(
+        'default-color' => 'f5f5f5',
     ));
 
-    // Load text domain for translations
-    load_theme_textdomain('marblecraft', MARBLECRAFT_DIR . '/languages');
+    // Set up the WordPress core custom header feature
+    add_theme_support('custom-header', array(
+        'default-image'      => '',
+        'default-text-color' => '333333',
+        'width'              => 1600,
+        'height'             => 500,
+        'flex-width'         => true,
+        'flex-height'        => true,
+    ));
+
+    // Add theme support for selective refresh for widgets
+    add_theme_support('customize-selective-refresh-widgets');
+
+    // Add image sizes
+    add_image_size('marblecraft-featured', 1200, 600, true);
+    add_image_size('marblecraft-product', 600, 600, true);
+    add_image_size('marblecraft-product-thumbnail', 300, 300, true);
 }
 add_action('after_setup_theme', 'marblecraft_setup');
 
 /**
- * Enqueue styles and scripts
+ * Register widget area
  */
-function marblecraft_enqueue_assets() {
-    // Enqueue Tailwind CSS from CDN
-    wp_enqueue_style('tailwind', 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css', array(), '2.2.19');
-    
-    // Enqueue custom styles
-    wp_enqueue_style('marblecraft-custom-style', MARBLECRAFT_URI . '/assets/css/custom.css', array('tailwind'), MARBLECRAFT_VERSION);
-    
-    // Enqueue main theme stylesheet
-    wp_enqueue_style('marblecraft-style', get_stylesheet_uri(), array('tailwind', 'marblecraft-custom-style'), MARBLECRAFT_VERSION);
-    
-    // Enqueue jQuery
-    wp_enqueue_script('jquery');
-    
-    // Enqueue main JS file
-    wp_enqueue_script('marblecraft-script', MARBLECRAFT_URI . '/assets/js/main.js', array('jquery'), MARBLECRAFT_VERSION, true);
-    
-    // Localize script for AJAX
-    wp_localize_script('marblecraft-script', 'marblecraftData', array(
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce'   => wp_create_nonce('marblecraft_form_nonce'),
+function marblecraft_widgets_init() {
+    register_sidebar(array(
+        'name'          => esc_html__('Sidebar', 'marblecraft'),
+        'id'            => 'sidebar-1',
+        'description'   => esc_html__('Add widgets here.', 'marblecraft'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s mb-8">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title text-xl font-bold mb-4">',
+        'after_title'   => '</h2>',
     ));
+
+    register_sidebar(array(
+        'name'          => esc_html__('Footer 1', 'marblecraft'),
+        'id'            => 'footer-1',
+        'description'   => esc_html__('First footer widget area', 'marblecraft'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4">',
+        'after_title'   => '</h3>',
+    ));
+
+    register_sidebar(array(
+        'name'          => esc_html__('Footer 2', 'marblecraft'),
+        'id'            => 'footer-2',
+        'description'   => esc_html__('Second footer widget area', 'marblecraft'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4">',
+        'after_title'   => '</h3>',
+    ));
+
+    register_sidebar(array(
+        'name'          => esc_html__('Footer 3', 'marblecraft'),
+        'id'            => 'footer-3',
+        'description'   => esc_html__('Third footer widget area', 'marblecraft'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4">',
+        'after_title'   => '</h3>',
+    ));
+}
+add_action('widgets_init', 'marblecraft_widgets_init');
+
+/**
+ * Enqueue scripts and styles
+ */
+function marblecraft_scripts() {
+    // Enqueue Tailwind CSS
+    wp_enqueue_style('marblecraft-tailwind', MARBLECRAFT_THEME_URI . '/assets/css/tailwind.min.css', array(), MARBLECRAFT_VERSION);
     
-    // reCAPTCHA (only on contact page)
-    if (is_page('contact')) {
-        wp_enqueue_script('recaptcha', 'https://www.google.com/recaptcha/api.js', array(), null, true);
+    // Enqueue theme stylesheet
+    wp_enqueue_style('marblecraft-style', get_stylesheet_uri(), array(), MARBLECRAFT_VERSION);
+    
+    // Enqueue custom CSS
+    wp_enqueue_style('marblecraft-custom', MARBLECRAFT_THEME_URI . '/assets/css/custom.css', array(), MARBLECRAFT_VERSION);
+    
+    // Enqueue main JavaScript file
+    wp_enqueue_script('marblecraft-main', MARBLECRAFT_THEME_URI . '/assets/js/main.js', array('jquery'), MARBLECRAFT_VERSION, true);
+    
+    // If comments are open or we have at least one comment, load the comment-reply script
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
     }
-}
-add_action('wp_enqueue_scripts', 'marblecraft_enqueue_assets');
-
-/**
- * Include custom files
- */
-require_once MARBLECRAFT_DIR . '/inc/custom-post-types.php';
-require_once MARBLECRAFT_DIR . '/inc/form-handler.php';
-require_once MARBLECRAFT_DIR . '/inc/admin-submissions.php';
-require_once MARBLECRAFT_DIR . '/inc/theme-customizer.php';
-
-/**
- * Create custom database table for form submissions on theme activation
- */
-function marblecraft_create_submission_table() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'marblecraft_submissions';
-    $charset_collate = $wpdb->get_charset_collate();
     
-    $sql = "CREATE TABLE $table_name (
-        id bigint(20) NOT NULL AUTO_INCREMENT,
-        name varchar(255) NOT NULL,
-        email varchar(255) NOT NULL,
-        country varchar(100) NOT NULL,
-        message text NOT NULL,
-        submission_date datetime DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (id)
-    ) $charset_collate;";
-    
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
+    // Localize script for translations and AJAX
+    wp_localize_script('marblecraft-main', 'marblecraftVars', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('marblecraft-nonce'),
+    ));
 }
-register_activation_hook(__FILE__, 'marblecraft_create_submission_table');
+add_action('wp_enqueue_scripts', 'marblecraft_scripts');
 
 /**
- * Add hreflang tags for multilingual SEO
+ * Admin scripts and styles
  */
-function marblecraft_add_hreflang_tags() {
-    // Check if WPML is active
-    if (function_exists('icl_get_languages')) {
-        $languages = icl_get_languages('skip_missing=0');
-        
-        if (!empty($languages)) {
-            foreach ($languages as $language) {
-                echo '<link rel="alternate" href="' . esc_url($language['url']) . '" hreflang="' . esc_attr($language['language_code']) . '" />' . "\n";
-            }
-        }
+function marblecraft_admin_scripts() {
+    // Admin specific styles/scripts if needed
+    wp_enqueue_style('marblecraft-admin', MARBLECRAFT_THEME_URI . '/assets/css/admin.css', array(), MARBLECRAFT_VERSION);
+}
+add_action('admin_enqueue_scripts', 'marblecraft_admin_scripts');
+
+/**
+ * Custom template tags for this theme
+ */
+require MARBLECRAFT_THEME_DIR . '/inc/template-tags.php';
+
+/**
+ * Functions which enhance the theme by hooking into WordPress
+ */
+require MARBLECRAFT_THEME_DIR . '/inc/template-functions.php';
+
+/**
+ * Theme Customizer
+ */
+require MARBLECRAFT_THEME_DIR . '/inc/theme-customizer.php';
+
+/**
+ * Custom post types
+ */
+require MARBLECRAFT_THEME_DIR . '/inc/custom-post-types.php';
+
+/**
+ * Load shortcodes
+ */
+require MARBLECRAFT_THEME_DIR . '/inc/shortcodes.php';
+
+/**
+ * Load WooCommerce compatibility file
+ */
+if (class_exists('WooCommerce')) {
+    require MARBLECRAFT_THEME_DIR . '/inc/woocommerce.php';
+}
+
+/**
+ * Custom excerpt length
+ */
+function marblecraft_excerpt_length($length) {
+    return 25;
+}
+add_filter('excerpt_length', 'marblecraft_excerpt_length');
+
+/**
+ * Change excerpt "Read More" text
+ */
+function marblecraft_excerpt_more($more) {
+    return '...';
+}
+add_filter('excerpt_more', 'marblecraft_excerpt_more');
+
+/**
+ * Handle AJAX Contact Form Submission
+ */
+function marblecraft_contact_form_submit() {
+    // Verify nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'marblecraft-nonce')) {
+        wp_send_json_error('Security check failed');
     }
-    // Check if Polylang is active
-    else if (function_exists('pll_languages_list') && function_exists('pll_current_language') && function_exists('pll_home_url')) {
-        $languages = pll_languages_list(array('fields' => 'slug'));
-        
-        if (!empty($languages)) {
-            foreach ($languages as $lang) {
-                echo '<link rel="alternate" href="' . esc_url(pll_home_url($lang)) . '" hreflang="' . esc_attr($lang) . '" />' . "\n";
-            }
-        }
+    
+    // Get form data
+    $name = sanitize_text_field($_POST['name']);
+    $email = sanitize_email($_POST['email']);
+    $subject = sanitize_text_field($_POST['subject']);
+    $message = sanitize_textarea_field($_POST['message']);
+    
+    // Validate form fields
+    if (empty($name) || empty($email) || empty($message)) {
+        wp_send_json_error('Please fill in all required fields');
     }
-}
-add_action('wp_head', 'marblecraft_add_hreflang_tags');
-
-/**
- * Contact form shortcode
- */
-function marblecraft_contact_form_shortcode() {
-    ob_start();
-    include MARBLECRAFT_DIR . '/template-parts/contact-form.php';
-    return ob_get_clean();
-}
-add_shortcode('marblecraft_contact_form', 'marblecraft_contact_form_shortcode');
-
-/**
- * Featured products shortcode
- */
-function marblecraft_featured_products_shortcode($atts) {
-    $atts = shortcode_atts(array(
-        'count' => 3,
-    ), $atts);
     
-    $count = intval($atts['count']);
+    // Validate email
+    if (!is_email($email)) {
+        wp_send_json_error('Please enter a valid email address');
+    }
     
-    ob_start();
-    
-    $args = array(
-        'post_type' => 'marble_product',
-        'posts_per_page' => $count,
-        'meta_query' => array(
-            array(
-                'key' => '_is_featured',
-                'value' => '1',
-                'compare' => '=',
-            ),
-        ),
+    // Email settings
+    $to = get_option('admin_email');
+    $subject = !empty($subject) ? $subject : 'New Contact Form Submission';
+    $headers = array(
+        'Content-Type: text/html; charset=UTF-8',
+        'From: ' . $name . ' <' . $email . '>',
+        'Reply-To: ' . $email,
     );
     
-    $query = new WP_Query($args);
+    // Prepare email content
+    $email_content = '<p><strong>Name:</strong> ' . $name . '</p>';
+    $email_content .= '<p><strong>Email:</strong> ' . $email . '</p>';
+    $email_content .= '<p><strong>Message:</strong></p>';
+    $email_content .= '<p>' . wpautop($message) . '</p>';
     
-    if ($query->have_posts()) {
-        echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
-        while ($query->have_posts()) {
-            $query->the_post();
-            include MARBLECRAFT_DIR . '/template-parts/product-card.php';
-        }
-        echo '</div>';
-        wp_reset_postdata();
+    // Send email
+    $email_sent = wp_mail($to, $subject, $email_content, $headers);
+    
+    // Check if email was sent
+    if ($email_sent) {
+        wp_send_json_success('Thank you for your message. We will get back to you soon!');
     } else {
-        echo '<p>' . esc_html__('No featured products found.', 'marblecraft') . '</p>';
+        wp_send_json_error('There was an error sending your message. Please try again later.');
+    }
+}
+add_action('wp_ajax_marblecraft_contact_form', 'marblecraft_contact_form_submit');
+add_action('wp_ajax_nopriv_marblecraft_contact_form', 'marblecraft_contact_form_submit');
+
+/**
+ * Register Custom Navigation Walker for Bootstrap/Tailwind
+ */
+if (!file_exists(MARBLECRAFT_THEME_DIR . '/inc/class-wp-bootstrap-navwalker.php')) {
+    // Custom fallback walker if file doesn't exist
+    function marblecraft_nav_menu_fallback($args) {
+        echo '<ul class="navbar-nav ml-auto">';
+        echo '<li class="nav-item"><a href="' . esc_url(home_url('/')) . '" class="nav-link">Home</a></li>';
+        echo '</ul>';
+    }
+} else {
+    // Include custom navigation walker
+    require_once MARBLECRAFT_THEME_DIR . '/inc/class-wp-bootstrap-navwalker.php';
+}
+
+/**
+ * Multilingual Support Functions
+ */
+function marblecraft_get_current_language() {
+    $lang = '';
+    
+    // Check if Polylang is active
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language();
+    }
+    // Check if WPML is active
+    elseif (defined('ICL_LANGUAGE_CODE')) {
+        $lang = ICL_LANGUAGE_CODE;
     }
     
-    return ob_get_clean();
+    return $lang ? $lang : 'en';
 }
-add_shortcode('marblecraft_featured_products', 'marblecraft_featured_products_shortcode');
+
+function marblecraft_get_available_languages() {
+    $languages = array();
+    
+    // Check if Polylang is active
+    if (function_exists('pll_languages_list')) {
+        $languages = pll_languages_list(array('fields' => 'slug'));
+    }
+    // Check if WPML is active
+    elseif (function_exists('icl_get_languages')) {
+        $wpml_languages = icl_get_languages('skip_missing=0');
+        $languages = array_keys($wpml_languages);
+    }
+    // Fall back to array from theme customizer
+    else {
+        $additional_languages = get_theme_mod('additional_languages', array('en', 'zh'));
+        if (is_string($additional_languages)) {
+            $additional_languages = explode(',', $additional_languages);
+        }
+        $languages = array_map('trim', $additional_languages);
+    }
+    
+    return !empty($languages) ? $languages : array('en');
+}
+
+/**
+ * Get translated URL
+ */
+function marblecraft_get_translated_url($url, $lang) {
+    // Check if Polylang is active
+    if (function_exists('pll_get_post')) {
+        $post_id = url_to_postid($url);
+        if ($post_id) {
+            $translated_id = pll_get_post($post_id, $lang);
+            if ($translated_id) {
+                return get_permalink($translated_id);
+            }
+        }
+    }
+    // Check if WPML is active
+    elseif (function_exists('icl_object_id')) {
+        $post_id = url_to_postid($url);
+        if ($post_id) {
+            $translated_id = icl_object_id($post_id, 'post', true, $lang);
+            if ($translated_id) {
+                return get_permalink($translated_id);
+            }
+        }
+    }
+    
+    // If translation plugins aren't active or translation not found, add language parameter to URL
+    $parsed_url = parse_url($url);
+    $query = isset($parsed_url['query']) ? $parsed_url['query'] : '';
+    parse_str($query, $query_params);
+    $query_params['lang'] = $lang;
+    $new_query = http_build_query($query_params);
+    
+    $scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
+    $host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+    $path = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+    $query = !empty($new_query) ? '?' . $new_query : '';
+    $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
+    
+    return $scheme . $host . $path . $query . $fragment;
+}
+
+/**
+ * Add SVG support
+ */
+function marblecraft_mime_types($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'marblecraft_mime_types');
+
+/**
+ * Enable post formats
+ */
+add_theme_support('post-formats', array(
+    'aside',
+    'gallery',
+    'link',
+    'image',
+    'quote',
+    'status',
+    'video',
+    'audio',
+    'chat',
+));
