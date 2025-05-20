@@ -1,0 +1,314 @@
+Untuk membuat website WordPress menggunakan tema kustom (custom theme) yang bertujuan menarik buyer luar negeri untuk bisnis pembuatan furnitur dari batu marmer, kita perlu merancang prompt yang jelas dan terperinci untuk AI generatif. Prompt ini akan meminta pembuatan tema WordPress custom yang mencakup fitur seperti desain responsif, dukungan multibahasa, SEO internasional, dan fungsionalitas untuk menampilkan katalog produk serta formulir kontak. Berikut adalah prompt yang dirancang untuk menghasilkan kode tema WordPress lengkap.
+
+---
+
+**Prompt untuk AI Generatif:**
+
+Buat tema WordPress kustom untuk website bisnis pembuatan furnitur dari batu marmer yang bertujuan menarik buyer luar negeri. Tema ini harus mendukung fitur berikut:
+
+**Fitur Utama Website:**
+1. **Halaman Utama (Home):** Menampilkan hero section dengan gambar furnitur marmer berkualitas tinggi, teks sambutan multibahasa (Inggris, Mandarin, Spanyol), dan tombol CTA (Call to Action) untuk menghubungi atau melihat katalog.
+2. **Halaman Produk (Products):** Menampilkan katalog furnitur marmer (contoh: meja, kursi, dekorasi) menggunakan custom post type (CPT) dengan galeri gambar, deskripsi, dan harga. Gunakan desain grid responsif.
+3. **Formulir Kontak (Contact):** Formulir kontak untuk mengumpulkan informasi dari buyer potensial (nama, email, negara, pesan), dengan validasi dan integrasi Google reCAPTCHA untuk mencegah spam.
+4. **Dukungan Multibahasa:** Kompatibel dengan plugin WPML atau Polylang untuk mendukung terjemahan ke Inggris, Mandarin, dan Spanyol. Sertakan pemilih bahasa di header.
+5. **SEO Internasional:** Implementasikan hreflang tags otomatis, meta tags dinamis, dan struktur URL yang mendukung multibahasa (contoh: `/en/products`, `/zh/products`).
+6. **Custom Post Type (CPT):** Buat CPT untuk produk furnitur dengan custom fields untuk gambar, deskripsi, dan harga menggunakan Advanced Custom Fields (ACF) atau kode kustom.
+7. **Backend Functionality:**
+   - Simpan data formulir kontak dalam custom database table.
+   - Kirim email notifikasi ke admin dan konfirmasi ke buyer setelah pengiriman formulir.
+   - Dashboard admin untuk mengelola submission formulir (melihat, menghapus, mengekspor).
+8. **Desain Responsif:** Gunakan Tailwind CSS atau Bootstrap untuk styling responsif yang kompatibel dengan desktop dan mobile.
+9. **Widget dan Shortcode:** Sertakan shortcode untuk menampilkan formulir kontak dan widget untuk menampilkan produk unggulan di sidebar atau footer.
+
+**Persyaratan Teknis:**
+- **Struktur Tema:**
+  - File utama: `style.css`, `functions.php`, `index.php`.
+  - Template: `front-page.php` (Home), `page-products.php` (Products), `page-contact.php` (Contact).
+  - File tambahan: `template-parts/product-card.php`, `template-parts/contact-form.php`.
+  - Folder: `assets/css`, `assets/js`, `assets/images`.
+- **Frontend:**
+  - Gunakan Tailwind CSS (via CDN atau bundled) untuk styling.
+  - Gunakan JavaScript untuk validasi formulir dan interaktivitas (contoh: galeri produk).
+  - Integrasikan WPML/Polylang untuk terjemahan dinamis.
+- **Backend:**
+  - Gunakan PHP dan WordPress best practices (hooks, filters, nonce untuk keamanan).
+  - Buat custom database table untuk menyimpan submission formulir.
+  - Gunakan `wp_mail` untuk email notifikasi.
+  - Implementasikan AJAX untuk pengiriman formulir.
+- **SEO dan Performa:**
+  - Tambahkan meta tags dinamis untuk setiap halaman.
+  - Optimalkan gambar dengan lazy loading.
+  - Pastikan hreflang tags dihasilkan untuk multibahasa.
+- **Output yang Diinginkan:**
+  - Kode lengkap untuk tema WordPress, termasuk semua file utama dan template.
+  - Instruksi instalasi dan konfigurasi tema.
+  - Contoh shortcode untuk formulir dan widget untuk produk.
+  - Contoh data produk dummy dalam format PHP atau SQL untuk CPT.
+- **Catatan Tambahan:**
+  - Gunakan bahasa Inggris untuk kode dan dokumentasi, tetapi pastikan konten mendukung multibahasa.
+  - Tema harus ringan dan dioptimalkan untuk kecepatan loading bagi audiens internasional.
+  - Hindari ketergantungan pada plugin pihak ketiga kecuali WPML/Polylang dan Google reCAPTCHA.
+  - Sertakan dokumentasi inline dalam kode untuk menjelaskan fungsi utama.
+
+**Contoh Struktur Output:**
+- File utama: `style.css`, `functions.php`, `index.php`.
+- Template: `front-page.php`, `page-products.php`, `page-contact.php`.
+- Template parts: `template-parts/product-card.php`, `template-parts/contact-form.php`.
+- Assets: `assets/css/style.css`, `assets/js/main.js`.
+
+Silakan hasilkan kode tema WordPress lengkap dengan dokumentasi dan instruksi penggunaan.
+
+---
+
+**Respon dari Grok:**
+
+Berikut adalah contoh implementasi tema WordPress kustom untuk bisnis furnitur marmer. Saya akan menyediakan file utama (`style.css`, `functions.php`, `front-page.php`) sebagai contoh, bersama dengan instruksi penggunaan. File tambahan seperti template halaman dan template parts dapat dikembangkan lebih lanjut berdasarkan kebutuhan spesifik.
+
+```css
+/*
+Theme Name: MarbleCraft
+Theme URI: https://marblecraft.com
+Author: Your Name
+Author URI: https://yourwebsite.com
+Description: A custom WordPress theme for a marble furniture business targeting international buyers.
+Version: 1.0
+Text Domain: marblecraft
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.hero-section {
+    background: url('assets/images/hero.jpg') no-repeat center center/cover;
+    min-height: 500px;
+    color: white;
+}
+
+.product-card {
+    @apply border rounded-lg shadow-md p-4;
+}
+```
+
+```php
+<?php
+/**
+ * MarbleCraft Theme Functions
+ */
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+// Enqueue styles and scripts
+function marblecraft_enqueue_assets() {
+    wp_enqueue_style('tailwind', 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css', [], '2.2.19');
+    wp_enqueue_style('marblecraft-style', get_stylesheet_uri(), [], '1.0');
+    wp_enqueue_script('marblecraft-script', get_template_directory_uri() . '/assets/js/main.js', ['jquery'], '1.0', true);
+    wp_enqueue_script('recaptcha', 'https://www.google.com/recaptcha/api.js', [], null, true);
+}
+add_action('wp_enqueue_scripts', 'marblecraft_enqueue_assets');
+
+// Register Custom Post Type for Products
+function marblecraft_register_product_cpt() {
+    $args = [
+        'public' => true,
+        'label' => __('Marble Products', 'marblecraft'),
+        'supports' => ['title', 'editor', 'thumbnail', 'custom-fields'],
+        'has_archive' => true,
+        'rewrite' => ['slug' => 'products'],
+        'show_in_rest' => true,
+    ];
+    register_post_type('marble_product', $args);
+}
+add_action('init', 'marblecraft_register_product_cpt');
+
+// Create custom database table for form submissions
+function marblecraft_create_submission_table() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'marblecraft_submissions';
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    $sql = "CREATE TABLE $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        name varchar(255) NOT NULL,
+        email varchar(255) NOT NULL,
+        country varchar(100) NOT NULL,
+        message text NOT NULL,
+        submission_date datetime DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+register_activation_hook(__FILE__, 'marblecraft_create_submission_table');
+
+// Add hreflang tags for SEO
+function marblecraft_add_hreflang_tags() {
+    if (function_exists('wpml_get_active_languages')) {
+        $languages = wpml_get_active_languages();
+        foreach ($languages as $lang) {
+            $url = wpml_get_language_url($lang['code']);
+            echo '<link rel="alternate" href="' . esc_url($url) . '" hreflang="' . esc_attr($lang['code']) . '" />';
+        }
+    }
+}
+add_action('wp_head', 'marblecraft_add_hreflang_tags');
+
+// Shortcode for contact form
+function marblecraft_contact_form_shortcode() {
+    ob_start();
+    include get_template_directory() . '/template-parts/contact-form.php';
+    return ob_get_clean();
+}
+add_shortcode('marblecraft_contact_form', 'marblecraft_contact_form_shortcode');
+
+// Handle form submission
+function marblecraft_handle_form_submission() {
+    check_ajax_referer('marblecraft_form_nonce', 'nonce');
+    
+    $recaptcha_secret = get_option('marblecraft_recaptcha_secret_key');
+    $recaptcha_response = sanitize_text_field($_POST['g-recaptcha-response']);
+    $recaptcha = wp_remote_get("https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response");
+    $recaptcha = json_decode(wp_remote_retrieve_body($recaptcha));
+    
+    if (!$recaptcha->success) {
+        wp_send_json_error(['message' => __('reCAPTCHA verification failed', 'marblecraft')]);
+    }
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'marblecraft_submissions';
+    $data = [
+        'name' => sanitize_text_field($_POST['name']),
+        'email' => sanitize_email($_POST['email']),
+        'country' => sanitize_text_field($_POST['country']),
+        'message' => sanitize_textarea_field($_POST['message']),
+    ];
+    
+    $wpdb->insert($table_name, $data);
+    
+    // Send email notifications
+    $admin_email = get_option('admin_email');
+    $subject = __('New MarbleCraft Inquiry', 'marblecraft');
+    $body = sprintf(
+        __('Name: %s\nEmail: %s\nCountry: %s\nMessage: %s', 'marblecraft'),
+        $data['name'], $data['email'], $data['country'], $data['message']
+    );
+    wp_mail($admin_email, $subject, $body);
+    
+    wp_mail($data['email'], __('Thank You for Your Inquiry', 'marblecraft'), __('We will respond soon.', 'marblecraft'));
+    
+    wp_send_json_success(['message' => __('Form submitted successfully', 'marblecraft')]);
+}
+add_action('wp_ajax_marblecraft_submit_form', 'marblecraft_handle_form_submission');
+add_action('wp_ajax_nopriv_marblecraft_submit_form', 'marblecraft_handle_form_submission');
+?>
+```
+
+```php
+<?php
+/**
+ * Template Name: Front Page
+ */
+get_header(); ?>
+
+<div class="hero-section flex items-center justify-center text-center">
+    <div>
+        <h1 class="text-4xl font-bold"><?php _e('Welcome to MarbleCraft', 'marblecraft'); ?></h1>
+        <p class="text-xl mt-4"><?php _e('Discover our premium marble furniture for global buyers.', 'marblecraft'); ?></p>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg"><?php _e('Contact Us', 'marblecraft'); ?></a>
+    </div>
+</div>
+
+<section class="container mx-auto my-12">
+    <h2 class="text-3xl font-bold text-center"><?php _e('Featured Products', 'marblecraft'); ?></h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <?php
+        $args = [
+            'post_type' => 'marble_product',
+            'posts_per_page' => 3,
+        ];
+        $query = new WP_Query($args);
+        if ($query->have_posts()) :
+            while ($query->have_posts()) : $query->the_post();
+                get_template_part('template-parts/product-card');
+            endwhile;
+            wp_reset_postdata();
+        endif;
+        ?>
+    </div>
+</section>
+
+<?php get_footer(); ?>
+```
+
+**Instruksi Instalasi dan Penggunaan:**
+
+1. **Instalasi Tema:**
+   - Buat folder `marblecraft` di `wp-content/themes/`.
+   - Salin file `style.css`, `functions.php`, `front-page.php`, dan buat folder `template-parts` serta `assets`.
+   - Aktifkan tema melalui **Appearance > Themes** di dashboard WordPress.
+
+2. **Konfigurasi:**
+   - Instal dan aktifkan plugin WPML atau Polylang untuk dukungan multibahasa.
+   - Dapatkan kunci Google reCAPTCHA dari [Google reCAPTCHA](https://www.google.com/recaptcha) dan tambahkan ke pengaturan tema (tambahkan opsi di admin via `functions.php`).
+   - Tambahkan halaman **Home**, **Products**, dan **Contact** di WordPress, lalu atur **Home** sebagai halaman depan di **Settings > Reading**.
+
+3. **Menampilkan Formulir:**
+   - Gunakan shortcode `[marblecraft_contact_form]` di halaman **Contact** untuk menampilkan formulir.
+   - Formulir akan otomatis diterjemahkan berdasarkan bahasa aktif (jika WPML/Polylang digunakan).
+
+4. **Manajemen Submission:**
+   - Submission formulir disimpan di tabel `wp_marblecraft_submissions`.
+   - Tambahkan halaman admin kustom di `functions.php` untuk mengelola submission (contoh: lihat, hapus, ekspor).
+
+5. **Struktur File Tambahan (Disarankan):**
+   - `page-products.php`: Template untuk halaman katalog produk.
+   - `page-contact.php`: Template untuk halaman formulir kontak.
+   - `template-parts/product-card.php`: Template untuk kartu produk.
+   - `template-parts/contact-form.php`: Template untuk formulir kontak.
+   - `assets/css/style.css`: Styling tambahan.
+   - `assets/js/main.js`: JavaScript untuk validasi dan interaktivitas.
+
+6. **Contoh Data Produk Dummy:**
+   ```php
+   $products = [
+       [
+           'post_title' => 'Marble Dining Table',
+           'post_content' => 'Elegant round dining table made from premium Italian marble.',
+           'post_type' => 'marble_product',
+           'post_status' => 'publish',
+           'meta_input' => [
+               'price' => 1200,
+               'image' => '/wp-content/uploads/table.jpg',
+           ],
+       ],
+       [
+           'post_title' => 'Marble Coffee Table',
+           'post_content' => 'Sleek modern coffee table with a polished marble finish.',
+           'post_type' => 'marble_product',
+           'post_status' => 'publish',
+           'meta_input' => [
+               'price' => 800,
+               'image' => '/wp-content/uploads/coffee-table.jpg',
+           ],
+       ],
+   ];
+   foreach ($products as $product) {
+       wp_insert_post($product);
+   }
+   ```
+
+**Catatan:**
+- Pastikan WPML/Polylang terinstal untuk dukungan multibahasa.
+- Tambahkan gambar ke folder `wp-content/uploads` untuk produk.
+- Untuk menambahkan bahasa baru, buat file terjemahan di folder `languages/` (misalnya, `marblecraft-en_US.po`).
+- Tema ini menggunakan Tailwind CSS via CDN untuk kemudahan, tetapi Anda bisa bundle Tailwind secara lokal untuk performa lebih baik.
+
+Jika Anda memerlukan kode untuk file tambahan (misalnya, `page-products.php`, `template-parts/contact-form.php`) atau penyesuaian lebih lanjut, silakan beri tahu saya!
