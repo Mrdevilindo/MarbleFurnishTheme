@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="600" fill="#4a4a4a"/>
+  
+  <!-- Marble texture pattern -->
+  <defs>
+    <pattern id="marblePattern" patternUnits="userSpaceOnUse" width="200" height="200">
+      <rect width="200" height="200" fill="#4a4a4a"/>
+      <path d="M0,0 L200,200 M50,0 L0,50 M200,150 L150,200 M200,50 L50,200 M0,150 L150,0" 
+            stroke="#ffffff" stroke-opacity="0.05" stroke-width="5" fill="none"/>
+    </pattern>
+  </defs>
+  
+  <rect width="1200" height="600" fill="url(#marblePattern)"/>
+  
+  <!-- Text indicating this is a placeholder -->
+  <text x="600" y="300" font-family="Arial, sans-serif" font-size="36" fill="#ffffff" text-anchor="middle">Hero Background Image</text>
+  <text x="600" y="350" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Replace with actual marble furniture image</text>
+  
+  <!-- MarbleCraft logo placeholder -->
+  <rect x="500" y="180" width="200" height="80" rx="10" opacity="0.7" fill="#000000"/>
+  <text x="600" y="230" font-family="Arial, sans-serif" font-size="28" fill="#ffffff" text-anchor="middle" font-weight="bold">MarbleCraft</text>
+</svg>

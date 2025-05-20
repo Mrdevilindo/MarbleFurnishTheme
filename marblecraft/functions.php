@@ -85,6 +85,7 @@ add_action('wp_enqueue_scripts', 'marblecraft_enqueue_assets');
 require_once MARBLECRAFT_DIR . '/inc/custom-post-types.php';
 require_once MARBLECRAFT_DIR . '/inc/form-handler.php';
 require_once MARBLECRAFT_DIR . '/inc/admin-submissions.php';
+require_once MARBLECRAFT_DIR . '/inc/theme-customizer.php';
 
 /**
  * Create custom database table for form submissions on theme activation
