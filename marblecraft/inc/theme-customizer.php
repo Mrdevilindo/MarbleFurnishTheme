@@ -481,6 +481,43 @@ function marblecraft_customize_register($wp_customize) {
             'placeholder' => __('e.g., en,zh,es,fr', 'marblecraft'),
         ),
     ));
+    
+    /**
+     * AI Integration Settings
+     */
+    $wp_customize->add_section('ai_integration', array(
+        'title'       => __('AI Integration', 'marblecraft'),
+        'description' => __('Configure AI integration settings for product descriptions', 'marblecraft'),
+        'priority'    => 140,
+    ));
+
+    // OpenAI API Key
+    $wp_customize->add_setting('openai_api_key', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('openai_api_key', array(
+        'label'       => __('OpenAI API Key', 'marblecraft'),
+        'description' => __('Enter your OpenAI API key to enable AI features for product descriptions', 'marblecraft'),
+        'section'     => 'ai_integration',
+        'type'        => 'password',
+    ));
+
+    // Enable AI Features
+    $wp_customize->add_setting('enable_ai_features', array(
+        'default'           => true,
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'marblecraft_sanitize_checkbox',
+    ));
+
+    $wp_customize->add_control('enable_ai_features', array(
+        'label'       => __('Enable AI Features', 'marblecraft'),
+        'description' => __('Use AI to generate product descriptions from images', 'marblecraft'),
+        'section'     => 'ai_integration',
+        'type'        => 'checkbox',
+    ));
 }
 add_action('customize_register', 'marblecraft_customize_register');
 

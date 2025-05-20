@@ -199,6 +199,11 @@ require MARBLECRAFT_THEME_DIR . '/inc/custom-post-types.php';
 require MARBLECRAFT_THEME_DIR . '/inc/shortcodes.php';
 
 /**
+ * Load ML Image Description generator
+ */
+require MARBLECRAFT_THEME_DIR . '/inc/ml-image-description.php';
+
+/**
  * Load WooCommerce compatibility file
  */
 if (class_exists('WooCommerce')) {
