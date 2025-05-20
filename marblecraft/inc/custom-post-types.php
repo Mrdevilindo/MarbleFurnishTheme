@@ -1,17 +1,19 @@
 <?php
 /**
- * Custom Post Types for MarbleCraft Theme
+ * MarbleCraft Custom Post Types
+ *
+ * This file registers custom post types and taxonomies for the theme.
  */
 
-// Prevent direct access
 if (!defined('ABSPATH')) {
-    exit;
+    exit; // Exit if accessed directly
 }
 
 /**
- * Register Custom Post Type for Marble Products
+ * Register custom post types and taxonomies
  */
-function marblecraft_register_product_cpt() {
+function marblecraft_register_custom_post_types() {
+    // Register Marble Products Post Type
     $labels = array(
         'name'                  => _x('Marble Products', 'Post type general name', 'marblecraft'),
         'singular_name'         => _x('Marble Product', 'Post type singular name', 'marblecraft'),
@@ -46,145 +48,299 @@ function marblecraft_register_product_cpt() {
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array('slug' => 'products'),
+        'rewrite'            => array('slug' => 'marble-products'),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
-        'menu_position'      => 20,
-        'menu_icon'          => 'dashicons-store',
-        'supports'           => array('title', 'editor', 'excerpt', 'thumbnail', 'custom-fields'),
+        'menu_position'      => 5,
+        'menu_icon'          => 'dashicons-format-gallery',
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         'show_in_rest'       => true,
     );
 
     register_post_type('marble_product', $args);
-}
-add_action('init', 'marblecraft_register_product_cpt');
 
-/**
- * Register Product Category Taxonomy
- */
-function marblecraft_register_product_category_taxonomy() {
-    $labels = array(
-        'name'              => _x('Product Categories', 'taxonomy general name', 'marblecraft'),
-        'singular_name'     => _x('Product Category', 'taxonomy singular name', 'marblecraft'),
-        'search_items'      => __('Search Product Categories', 'marblecraft'),
-        'all_items'         => __('All Product Categories', 'marblecraft'),
-        'parent_item'       => __('Parent Product Category', 'marblecraft'),
-        'parent_item_colon' => __('Parent Product Category:', 'marblecraft'),
-        'edit_item'         => __('Edit Product Category', 'marblecraft'),
-        'update_item'       => __('Update Product Category', 'marblecraft'),
-        'add_new_item'      => __('Add New Product Category', 'marblecraft'),
-        'new_item_name'     => __('New Product Category Name', 'marblecraft'),
-        'menu_name'         => __('Product Categories', 'marblecraft'),
+    // Register Product Category Taxonomy
+    $cat_labels = array(
+        'name'                       => _x('Product Categories', 'taxonomy general name', 'marblecraft'),
+        'singular_name'              => _x('Product Category', 'taxonomy singular name', 'marblecraft'),
+        'search_items'               => __('Search Product Categories', 'marblecraft'),
+        'popular_items'              => __('Popular Product Categories', 'marblecraft'),
+        'all_items'                  => __('All Product Categories', 'marblecraft'),
+        'parent_item'                => __('Parent Product Category', 'marblecraft'),
+        'parent_item_colon'          => __('Parent Product Category:', 'marblecraft'),
+        'edit_item'                  => __('Edit Product Category', 'marblecraft'),
+        'update_item'                => __('Update Product Category', 'marblecraft'),
+        'add_new_item'               => __('Add New Product Category', 'marblecraft'),
+        'new_item_name'              => __('New Product Category Name', 'marblecraft'),
+        'separate_items_with_commas' => __('Separate product categories with commas', 'marblecraft'),
+        'add_or_remove_items'        => __('Add or remove product categories', 'marblecraft'),
+        'choose_from_most_used'      => __('Choose from the most used product categories', 'marblecraft'),
+        'not_found'                  => __('No product categories found.', 'marblecraft'),
+        'menu_name'                  => __('Product Categories', 'marblecraft'),
     );
 
-    $args = array(
-        'hierarchical'      => true,
-        'labels'            => $labels,
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'query_var'         => true,
-        'rewrite'           => array('slug' => 'product-category'),
-        'show_in_rest'      => true,
+    $cat_args = array(
+        'hierarchical'          => true,
+        'labels'                => $cat_labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => array('slug' => 'product-category'),
+        'show_in_rest'          => true,
     );
 
-    register_taxonomy('product_category', array('marble_product'), $args);
+    register_taxonomy('product_category', 'marble_product', $cat_args);
+
+    // Register Material Taxonomy
+    $material_labels = array(
+        'name'                       => _x('Materials', 'taxonomy general name', 'marblecraft'),
+        'singular_name'              => _x('Material', 'taxonomy singular name', 'marblecraft'),
+        'search_items'               => __('Search Materials', 'marblecraft'),
+        'popular_items'              => __('Popular Materials', 'marblecraft'),
+        'all_items'                  => __('All Materials', 'marblecraft'),
+        'parent_item'                => null,
+        'parent_item_colon'          => null,
+        'edit_item'                  => __('Edit Material', 'marblecraft'),
+        'update_item'                => __('Update Material', 'marblecraft'),
+        'add_new_item'               => __('Add New Material', 'marblecraft'),
+        'new_item_name'              => __('New Material Name', 'marblecraft'),
+        'separate_items_with_commas' => __('Separate materials with commas', 'marblecraft'),
+        'add_or_remove_items'        => __('Add or remove materials', 'marblecraft'),
+        'choose_from_most_used'      => __('Choose from the most used materials', 'marblecraft'),
+        'not_found'                  => __('No materials found.', 'marblecraft'),
+        'menu_name'                  => __('Materials', 'marblecraft'),
+    );
+
+    $material_args = array(
+        'hierarchical'          => false,
+        'labels'                => $material_labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => array('slug' => 'material'),
+        'show_in_rest'          => true,
+    );
+
+    register_taxonomy('material', 'marble_product', $material_args);
+
+    // Flush rewrite rules only on theme activation
+    if (get_option('marblecraft_flush_rewrite_rules')) {
+        flush_rewrite_rules();
+        delete_option('marblecraft_flush_rewrite_rules');
+    }
 }
-add_action('init', 'marblecraft_register_product_category_taxonomy');
+add_action('init', 'marblecraft_register_custom_post_types');
 
 /**
- * Add custom meta boxes for product prices
+ * Set flag to flush rewrite rules on theme activation
  */
-function marblecraft_add_price_meta_box() {
+function marblecraft_rewrite_flush() {
+    add_option('marblecraft_flush_rewrite_rules', true);
+}
+register_activation_hook(__FILE__, 'marblecraft_rewrite_flush');
+
+/**
+ * Add custom meta boxes for Marble Products
+ */
+function marblecraft_add_meta_boxes() {
     add_meta_box(
-        'marblecraft_product_price',
+        'marble_product_details',
         __('Product Details', 'marblecraft'),
-        'marblecraft_product_price_callback',
+        'marblecraft_product_details_callback',
         'marble_product',
         'normal',
         'high'
     );
 }
-add_action('add_meta_boxes', 'marblecraft_add_price_meta_box');
+add_action('add_meta_boxes', 'marblecraft_add_meta_boxes');
 
 /**
- * Meta box callback function
+ * Product details meta box callback
  */
-function marblecraft_product_price_callback($post) {
+function marblecraft_product_details_callback($post) {
     // Add nonce for security
-    wp_nonce_field('marblecraft_product_price_nonce', 'marblecraft_price_nonce');
+    wp_nonce_field('marblecraft_product_details_nonce', 'marblecraft_product_details_nonce');
     
-    // Get existing values
-    $price = get_post_meta($post->ID, '_product_price', true);
-    $currency = get_post_meta($post->ID, '_product_currency', true) ?: 'USD';
-    $is_featured = get_post_meta($post->ID, '_is_featured', true) ?: '0';
+    // Get stored meta values
+    $price = get_post_meta($post->ID, '_price', true);
+    $discount_price = get_post_meta($post->ID, '_discount_price', true);
+    $sku = get_post_meta($post->ID, '_sku', true);
+    $dimensions = get_post_meta($post->ID, '_dimensions', true);
+    $weight = get_post_meta($post->ID, '_weight', true);
+    $stock = get_post_meta($post->ID, '_stock', true);
     
+    // Display fields
     ?>
-    <p>
-        <label for="marblecraft_price"><?php esc_html_e('Price:', 'marblecraft'); ?></label>
-        <input type="text" id="marblecraft_price" name="marblecraft_price" value="<?php echo esc_attr($price); ?>" class="regular-text">
-    </p>
-    <p>
-        <label for="marblecraft_currency"><?php esc_html_e('Currency:', 'marblecraft'); ?></label>
-        <select id="marblecraft_currency" name="marblecraft_currency">
-            <option value="USD" <?php selected($currency, 'USD'); ?>>USD ($)</option>
-            <option value="EUR" <?php selected($currency, 'EUR'); ?>>EUR (€)</option>
-            <option value="CNY" <?php selected($currency, 'CNY'); ?>>CNY (¥)</option>
-        </select>
-    </p>
-    <p>
-        <label for="marblecraft_is_featured">
-            <input type="checkbox" id="marblecraft_is_featured" name="marblecraft_is_featured" value="1" <?php checked($is_featured, '1'); ?>>
-            <?php esc_html_e('Feature this product on homepage', 'marblecraft'); ?>
-        </label>
-    </p>
+    <div class="marble-product-details-wrap">
+        <p>
+            <label for="price"><?php _e('Price', 'marblecraft'); ?></label>
+            <input type="text" id="price" name="price" value="<?php echo esc_attr($price); ?>" class="regular-text" />
+        </p>
+        
+        <p>
+            <label for="discount_price"><?php _e('Discount Price', 'marblecraft'); ?></label>
+            <input type="text" id="discount_price" name="discount_price" value="<?php echo esc_attr($discount_price); ?>" class="regular-text" />
+            <span class="description"><?php _e('Leave empty if no discount', 'marblecraft'); ?></span>
+        </p>
+        
+        <p>
+            <label for="sku"><?php _e('SKU', 'marblecraft'); ?></label>
+            <input type="text" id="sku" name="sku" value="<?php echo esc_attr($sku); ?>" class="regular-text" />
+        </p>
+        
+        <p>
+            <label for="dimensions"><?php _e('Dimensions (L x W x H)', 'marblecraft'); ?></label>
+            <input type="text" id="dimensions" name="dimensions" value="<?php echo esc_attr($dimensions); ?>" class="regular-text" />
+            <span class="description"><?php _e('e.g. 80 x 40 x 75 cm', 'marblecraft'); ?></span>
+        </p>
+        
+        <p>
+            <label for="weight"><?php _e('Weight (kg)', 'marblecraft'); ?></label>
+            <input type="text" id="weight" name="weight" value="<?php echo esc_attr($weight); ?>" class="regular-text" />
+        </p>
+        
+        <p>
+            <label for="stock"><?php _e('Stock Status', 'marblecraft'); ?></label>
+            <select id="stock" name="stock">
+                <option value="in_stock" <?php selected($stock, 'in_stock'); ?>><?php _e('In Stock', 'marblecraft'); ?></option>
+                <option value="out_of_stock" <?php selected($stock, 'out_of_stock'); ?>><?php _e('Out of Stock', 'marblecraft'); ?></option>
+                <option value="pre_order" <?php selected($stock, 'pre_order'); ?>><?php _e('Pre-Order', 'marblecraft'); ?></option>
+            </select>
+        </p>
+    </div>
     <?php
 }
 
 /**
- * Save meta box data
+ * Save product details meta box data
  */
-function marblecraft_save_product_price($post_id) {
+function marblecraft_save_product_details($post_id) {
     // Check if nonce is set
-    if (!isset($_POST['marblecraft_price_nonce'])) {
+    if (!isset($_POST['marblecraft_product_details_nonce'])) {
         return;
     }
     
-    // Verify nonce
-    if (!wp_verify_nonce($_POST['marblecraft_price_nonce'], 'marblecraft_product_price_nonce')) {
+    // Verify that the nonce is valid
+    if (!wp_verify_nonce($_POST['marblecraft_product_details_nonce'], 'marblecraft_product_details_nonce')) {
         return;
     }
     
-    // Check if autosave
+    // If this is an autosave, don't do anything
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
     
-    // Check permissions
+    // Check the user's permissions
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
     
-    // Save price
-    if (isset($_POST['marblecraft_price'])) {
-        update_post_meta(
-            $post_id,
-            '_product_price',
-            sanitize_text_field($_POST['marblecraft_price'])
-        );
+    // Sanitize and save the data
+    if (isset($_POST['price'])) {
+        update_post_meta($post_id, '_price', sanitize_text_field($_POST['price']));
     }
     
-    // Save currency
-    if (isset($_POST['marblecraft_currency'])) {
-        update_post_meta(
-            $post_id,
-            '_product_currency',
-            sanitize_text_field($_POST['marblecraft_currency'])
-        );
+    if (isset($_POST['discount_price'])) {
+        update_post_meta($post_id, '_discount_price', sanitize_text_field($_POST['discount_price']));
     }
     
-    // Save featured status
-    $is_featured = isset($_POST['marblecraft_is_featured']) ? '1' : '0';
-    update_post_meta($post_id, '_is_featured', $is_featured);
+    if (isset($_POST['sku'])) {
+        update_post_meta($post_id, '_sku', sanitize_text_field($_POST['sku']));
+    }
+    
+    if (isset($_POST['dimensions'])) {
+        update_post_meta($post_id, '_dimensions', sanitize_text_field($_POST['dimensions']));
+    }
+    
+    if (isset($_POST['weight'])) {
+        update_post_meta($post_id, '_weight', sanitize_text_field($_POST['weight']));
+    }
+    
+    if (isset($_POST['stock'])) {
+        update_post_meta($post_id, '_stock', sanitize_text_field($_POST['stock']));
+    }
 }
-add_action('save_post_marble_product', 'marblecraft_save_product_price');
+add_action('save_post_marble_product', 'marblecraft_save_product_details');
+
+/**
+ * Add custom columns to product admin list
+ */
+function marblecraft_product_columns($columns) {
+    $new_columns = array();
+    // Insert thumbnail after checkbox
+    foreach ($columns as $key => $value) {
+        $new_columns[$key] = $value;
+        if ($key === 'cb') {
+            $new_columns['thumbnail'] = __('Image', 'marblecraft');
+        }
+    }
+    
+    // Add price column
+    $new_columns['price'] = __('Price', 'marblecraft');
+    
+    // Add stock status
+    $new_columns['stock'] = __('Stock Status', 'marblecraft');
+    
+    return $new_columns;
+}
+add_filter('manage_marble_product_posts_columns', 'marblecraft_product_columns');
+
+/**
+ * Display custom columns content
+ */
+function marblecraft_product_custom_column($column, $post_id) {
+    switch ($column) {
+        case 'thumbnail':
+            echo get_the_post_thumbnail($post_id, array(50, 50));
+            break;
+            
+        case 'price':
+            $price = get_post_meta($post_id, '_price', true);
+            $discount_price = get_post_meta($post_id, '_discount_price', true);
+            
+            if (!empty($price)) {
+                echo esc_html($price);
+                
+                if (!empty($discount_price)) {
+                    echo ' <span class="discount-price">(' . esc_html($discount_price) . ')</span>';
+                }
+            } else {
+                echo '-';
+            }
+            break;
+            
+        case 'stock':
+            $stock = get_post_meta($post_id, '_stock', true);
+            
+            switch ($stock) {
+                case 'in_stock':
+                    echo '<span class="stock-status in-stock">' . __('In Stock', 'marblecraft') . '</span>';
+                    break;
+                    
+                case 'out_of_stock':
+                    echo '<span class="stock-status out-of-stock">' . __('Out of Stock', 'marblecraft') . '</span>';
+                    break;
+                    
+                case 'pre_order':
+                    echo '<span class="stock-status pre-order">' . __('Pre-Order', 'marblecraft') . '</span>';
+                    break;
+                    
+                default:
+                    echo '-';
+                    break;
+            }
+            break;
+    }
+}
+add_action('manage_marble_product_posts_custom_column', 'marblecraft_product_custom_column', 10, 2);
+
+/**
+ * Make custom columns sortable
+ */
+function marblecraft_product_sortable_columns($columns) {
+    $columns['price'] = 'price';
+    $columns['stock'] = 'stock';
+    return $columns;
+}
+add_filter('manage_edit-marble_product_sortable_columns', 'marblecraft_product_sortable_columns');
