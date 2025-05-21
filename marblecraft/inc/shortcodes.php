@@ -350,12 +350,11 @@ function marblecraft_testimonials_shortcode($atts) {
                 });
             </script>
             <?php
-        }
-    else :
+        } else {
         echo '<div class="no-testimonials bg-white p-6 rounded-lg shadow-md text-center">';
         echo '<p class="text-gray-600">No testimonials found.</p>';
         echo '</div>';
-    endif;
+    }
     
     // Reset post data
     wp_reset_postdata();
