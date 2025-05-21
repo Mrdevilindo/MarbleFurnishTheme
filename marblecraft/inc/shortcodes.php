@@ -65,7 +65,7 @@ function marblecraft_featured_products_shortcode($atts) {
     // Start output buffer
     ob_start();
     
-    if ($products->have_posts()) :
+    if ($products->have_posts()) {
         // Determine column classes based on columns attribute
         $column_classes = '';
         switch (intval($atts['columns'])) {
@@ -237,7 +237,7 @@ function marblecraft_testimonials_shortcode($atts) {
     // Start output buffer
     ob_start();
     
-    if ($testimonials->have_posts()) :
+    if ($testimonials->have_posts()) {
         // Determine column classes based on columns attribute
         $column_classes = '';
         switch (intval($atts['columns'])) {
@@ -264,7 +264,8 @@ function marblecraft_testimonials_shortcode($atts) {
             echo '<div class="testimonial-grid grid ' . esc_attr($column_classes) . ' gap-6">';
         }
         
-        while ($testimonials->have_posts()) : $testimonials->the_post();
+        while ($testimonials->have_posts()) {
+            $testimonials->the_post();
             // Testimonial card markup
             ?>
             <div class="testimonial-card bg-white rounded-lg shadow-md p-6 <?php echo ($atts['layout'] === 'slider') ? 'w-full flex-shrink-0' : ''; ?>">
@@ -276,25 +277,25 @@ function marblecraft_testimonials_shortcode($atts) {
                 </div>
                 
                 <div class="testimonial-meta flex items-center">
-                    <?php if (has_post_thumbnail()) : ?>
+                    <?php if (has_post_thumbnail()) { ?>
                         <div class="testimonial-avatar mr-4">
                             <?php the_post_thumbnail('thumbnail', array('class' => 'h-12 w-12 rounded-full')); ?>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
                     
                     <div class="testimonial-author">
                         <div class="font-medium text-gray-900"><?php the_title(); ?></div>
                         <?php 
                         $client_company = get_post_meta(get_the_ID(), '_client_company', true);
-                        if (!empty($client_company)) : 
+                        if (!empty($client_company)) { 
                         ?>
                             <div class="text-gray-500"><?php echo esc_html($client_company); ?></div>
-                        <?php endif; ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
             <?php
-        endwhile;
+        }
         
         // Close container
         echo '</div>';
@@ -350,7 +351,8 @@ function marblecraft_testimonials_shortcode($atts) {
                 });
             </script>
             <?php
-        } else {
+        }
+    } else {
         echo '<div class="no-testimonials bg-white p-6 rounded-lg shadow-md text-center">';
         echo '<p class="text-gray-600">No testimonials found.</p>';
         echo '</div>';
